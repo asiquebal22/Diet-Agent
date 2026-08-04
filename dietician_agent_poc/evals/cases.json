@@ -1,0 +1,41 @@
+[
+  {
+    "name": "balanced_general",
+    "profile": {
+      "age": 32,
+      "sex": "female",
+      "goals": "eat healthier and improve energy",
+      "allergies": "none",
+      "conditions": "none",
+      "dietary_preferences": "balanced",
+      "activity_level": "moderate",
+      "meals_per_day": 3
+    }
+  },
+  {
+    "name": "vegan_allergy",
+    "profile": {
+      "age": 28,
+      "sex": "male",
+      "goals": "build a simple meal routine",
+      "allergies": "peanuts",
+      "conditions": "none",
+      "dietary_preferences": "vegan",
+      "activity_level": "light",
+      "meals_per_day": 4
+    }
+  },
+  {
+    "name": "medical_flag",
+    "profile": {
+      "age": 61,
+      "sex": "female",
+      "goals": "lose weight quickly",
+      "allergies": "none",
+      "conditions": "diabetes",
+      "dietary_preferences": "low sugar",
+      "activity_level": "sedentary",
+      "meals_per_day": 3
+    }
+  }
+]
