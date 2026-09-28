@@ -637,7 +637,10 @@
           try {
             await putRecords(records);
             message.textContent = `${records.length} exercise${records.length === 1 ? '' : 's'} saved in this browser.`;
-            card.querySelectorAll('.set-entry-grid').forEach(grid => grid.closest('.exercise')?.querySelector('.check')?.setAttribute('checked', ''));
+            card.querySelectorAll('.set-entry-grid').forEach(grid => {
+              const check = grid.closest('.exercise')?.querySelector('.check');
+              if (check) check.checked = true;
+            });
             await renderHistory();
           } catch (error) {
             message.textContent = 'Could not save. Check browser storage permissions.';
@@ -747,7 +750,8 @@
       dateInput.addEventListener('change', () => loadDate().catch(() => setMessage('Could not load that date.', true)));
 
       dbPromise.then(async () => {
-        const legacy = JSON.parse(localStorage.getItem('ashifWorkoutLog') || '[]');
+        let legacy = [];
+        try { legacy = JSON.parse(localStorage.getItem('ashifWorkoutLog') || '[]'); } catch (error) { legacy = []; }
         if (Array.isArray(legacy) && legacy.length && !localStorage.getItem('ashifIndexedDbMigration')) {
           await putRecords(legacy.map(record => ({ ...record, updatedAt: record.updatedAt || record.timestamp || new Date().toISOString() })));
           localStorage.setItem('ashifIndexedDbMigration', 'complete');
