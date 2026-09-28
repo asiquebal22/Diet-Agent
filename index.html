@@ -140,6 +140,22 @@
     .session-actions { display: flex; justify-content: flex-end; align-items: center; gap: 12px; padding: 13px 18px; border-top: 1px solid var(--line); background: #faf8f2; }
     .session-message { color: var(--muted); font-size: 11px; }
     .history-card { overflow: hidden; border: 1px solid var(--line); border-radius: 20px; background: var(--card); box-shadow: var(--shadow); }
+    .trend-card { margin-bottom: 14px; padding: 20px; border: 1px solid var(--line); border-radius: 20px; background: var(--card); box-shadow: var(--shadow); }
+    .trend-controls { display: grid; grid-template-columns: minmax(180px, 1fr) minmax(170px, .55fr); gap: 10px; margin-bottom: 14px; }
+    .trend-field label { display: block; margin-bottom: 5px; color: var(--muted); font: 500 9px "DM Mono", monospace; text-transform: uppercase; }
+    .trend-field select { width: 100%; padding: 10px 11px; border: 1px solid var(--line); border-radius: 10px; background: #faf8f2; color: var(--ink); }
+    .trend-stats { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 10px; }
+    .trend-stat { padding: 7px 10px; border-radius: 9px; background: #f0eee7; color: var(--muted); font-size: 11px; }
+    .trend-stat strong { color: var(--ink); }
+    .trend-chart-wrap { min-height: 260px; overflow-x: auto; }
+    .trend-chart { display: block; width: 100%; min-width: 620px; height: 260px; }
+    .trend-chart .grid-line { stroke: #e3dfd4; stroke-width: 1; }
+    .trend-chart .axis-line { stroke: #aaa79e; stroke-width: 1; }
+    .trend-chart .axis-label { fill: var(--muted); font: 10px "DM Mono", monospace; }
+    .trend-chart .trend-line { fill: none; stroke: var(--orange); stroke-width: 3; stroke-linejoin: round; stroke-linecap: round; }
+    .trend-chart .trend-point { fill: var(--card); stroke: var(--orange); stroke-width: 3; }
+    .trend-chart .latest-value { fill: var(--ink); font-size: 12px; font-weight: 800; }
+    .trend-empty { color: var(--muted); font-size: 12px; }
     .history-toolbar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px; padding: 15px 18px; border-bottom: 1px solid var(--line); }
     .history-toolbar p { margin: 0; color: var(--muted); font-size: 12px; }
     .history-table-wrap { overflow-x: auto; }
@@ -217,6 +233,7 @@
       .training-notes, .rules, .progress-grid { grid-template-columns: 1fr; }
       .sync-controls { grid-template-columns: 1fr 1fr; }
       .sync-field { grid-column: 1 / -1; }
+      .trend-controls { grid-template-columns: 1fr; }
       .set-entry-grid { grid-column: 1 / -1; grid-template-columns: repeat(2, 1fr); }
       .exercise-extra { grid-template-columns: 1fr; }
       .macro-grid { grid-template-columns: repeat(3,1fr); }
@@ -471,6 +488,16 @@
         <div><div class="eyebrow" style="color:var(--orange)">Training history</div><h2>Your saved sessions.</h2></div>
         <p>Entries live only in this browser. Download a JSON backup regularly, especially before clearing browser data or changing devices.</p>
       </div>
+      <div class="trend-card">
+        <div class="trend-controls">
+          <div class="trend-field"><label for="trendExercise">Movement</label><select id="trendExercise"><option>No movements logged yet</option></select></div>
+          <div class="trend-field"><label for="trendMetric">Trend metric</label><select id="trendMetric"><option value="e1rm">Estimated 1-rep max</option><option value="bestWeight">Best working weight</option><option value="volume">Total session volume</option></select></div>
+        </div>
+        <div class="trend-stats" id="trendStats" aria-live="polite"></div>
+        <div class="trend-chart-wrap" id="trendChartWrap">
+          <svg class="trend-chart" id="trendChart" viewBox="0 0 760 260" role="img" aria-label="Movement performance trend"></svg>
+        </div>
+      </div>
       <div class="history-card">
         <div class="history-toolbar">
           <p id="historySummary">Loading workout history…</p>
@@ -497,6 +524,11 @@
       const status = document.getElementById('syncStatus');
       const historyRows = document.getElementById('historyRows');
       const historySummary = document.getElementById('historySummary');
+      const trendExercise = document.getElementById('trendExercise');
+      const trendMetric = document.getElementById('trendMetric');
+      const trendStats = document.getElementById('trendStats');
+      const trendChart = document.getElementById('trendChart');
+      let currentHistory = [];
 
       const localDate = () => {
         const now = new Date();
@@ -671,8 +703,77 @@
 
       const escapeHtml = value => String(value ?? '').replace(/[&<>'"]/g, character => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', "'":'&#39;', '"':'&quot;' })[character]);
 
+      function renderTrend(records) {
+        const previousExercise = trendExercise.value;
+        const movements = [...new Set(records.map(record => record.exercise).filter(Boolean))].sort((a, b) => a.localeCompare(b));
+        trendExercise.innerHTML = movements.length ? movements.map(movement => `<option value="${escapeHtml(movement)}">${escapeHtml(movement)}</option>`).join('') : '<option value="">No movements logged yet</option>';
+        if (movements.includes(previousExercise)) trendExercise.value = previousExercise;
+        const movement = trendExercise.value;
+        const metric = trendMetric.value;
+        const config = {
+          e1rm: { label: 'Estimated 1RM', unit: 'lb', value: record => Math.max(0, ...(record.sets || []).filter(set => Number(set.weight) > 0 && Number(set.reps) > 0).map(set => Number(set.weight) * (1 + Number(set.reps) / 30))) },
+          bestWeight: { label: 'Best weight', unit: 'lb', value: record => Math.max(0, ...(record.sets || []).map(set => Number(set.weight) || 0)) },
+          volume: { label: 'Session volume', unit: 'lb', value: record => Number(record.volume) || 0 }
+        }[metric];
+        if (!movement) {
+          trendStats.innerHTML = '<span class="trend-empty">Save a workout to start tracking movement trends.</span>';
+          trendChart.innerHTML = '<text x="380" y="130" text-anchor="middle" class="axis-label">No trend data yet</text>';
+          return;
+        }
+
+        const byDate = new Map();
+        records.filter(record => record.exercise === movement).forEach(record => {
+          const value = config.value(record);
+          if (!value) return;
+          if (!byDate.has(record.sessionDate)) byDate.set(record.sessionDate, []);
+          byDate.get(record.sessionDate).push(value);
+        });
+        const points = [...byDate.entries()].sort(([a], [b]) => a.localeCompare(b)).map(([date, values]) => ({
+          date,
+          value: metric === 'volume' ? values.reduce((sum, value) => sum + value, 0) : Math.max(...values)
+        }));
+        if (!points.length) {
+          trendStats.innerHTML = `<span class="trend-empty">No usable ${escapeHtml(config.label.toLowerCase())} data for this movement.</span>`;
+          trendChart.innerHTML = '<text x="380" y="130" text-anchor="middle" class="axis-label">Enter both weight and reps to build this trend</text>';
+          return;
+        }
+
+        const first = points[0].value;
+        const latest = points[points.length - 1].value;
+        const change = latest - first;
+        const format = value => metric === 'e1rm' ? value.toFixed(1) : Math.round(value).toLocaleString();
+        trendStats.innerHTML = `<span class="trend-stat">Latest <strong>${format(latest)} ${config.unit}</strong></span><span class="trend-stat">Change <strong>${change >= 0 ? '+' : ''}${format(change)} ${config.unit}</strong></span><span class="trend-stat">Logged <strong>${points.length} session${points.length === 1 ? '' : 's'}</strong></span>`;
+
+        const width = 760, height = 260;
+        const margin = { top: 22, right: 34, bottom: 46, left: 62 };
+        const plotWidth = width - margin.left - margin.right;
+        const plotHeight = height - margin.top - margin.bottom;
+        let minValue = Math.min(...points.map(point => point.value));
+        let maxValue = Math.max(...points.map(point => point.value));
+        const spread = maxValue - minValue;
+        const pad = spread ? spread * 0.18 : Math.max(maxValue * 0.12, 5);
+        minValue = Math.max(0, minValue - pad);
+        maxValue += pad;
+        const x = index => points.length === 1 ? margin.left + plotWidth / 2 : margin.left + (index / (points.length - 1)) * plotWidth;
+        const y = value => margin.top + ((maxValue - value) / (maxValue - minValue || 1)) * plotHeight;
+        const yTicks = Array.from({ length: 5 }, (_, index) => maxValue - (index / 4) * (maxValue - minValue));
+        const tickIndexes = points.length <= 5 ? points.map((_, index) => index) : [...new Set([0, Math.round((points.length - 1) * .25), Math.round((points.length - 1) * .5), Math.round((points.length - 1) * .75), points.length - 1])];
+        const path = points.map((point, index) => `${index ? 'L' : 'M'} ${x(index).toFixed(1)} ${y(point.value).toFixed(1)}`).join(' ');
+        const grid = yTicks.map(value => `<line class="grid-line" x1="${margin.left}" x2="${width - margin.right}" y1="${y(value).toFixed(1)}" y2="${y(value).toFixed(1)}"></line><text class="axis-label" x="${margin.left - 9}" y="${(y(value) + 3).toFixed(1)}" text-anchor="end">${escapeHtml(format(value))}</text>`).join('');
+        const xLabels = tickIndexes.map(index => `<text class="axis-label" x="${x(index).toFixed(1)}" y="${height - 17}" text-anchor="middle">${escapeHtml(points[index].date.slice(5))}</text>`).join('');
+        const circles = points.map((point, index) => `<circle class="trend-point" cx="${x(index).toFixed(1)}" cy="${y(point.value).toFixed(1)}" r="5"><title>${escapeHtml(point.date)} · ${escapeHtml(format(point.value))} ${config.unit}</title></circle>`).join('');
+        const latestX = x(points.length - 1);
+        const latestY = y(latest);
+        const labelAnchor = latestX > width - 100 ? 'end' : 'start';
+        const labelX = latestX > width - 100 ? latestX - 10 : latestX + 10;
+        trendChart.setAttribute('aria-label', `${movement}: ${config.label} trend across ${points.length} sessions. Latest ${format(latest)} ${config.unit}.`);
+        trendChart.innerHTML = `<title>${escapeHtml(movement)} ${escapeHtml(config.label)} trend</title>${grid}<line class="axis-line" x1="${margin.left}" x2="${margin.left}" y1="${margin.top}" y2="${height - margin.bottom}"></line><line class="axis-line" x1="${margin.left}" x2="${width - margin.right}" y1="${height - margin.bottom}" y2="${height - margin.bottom}"></line><path class="trend-line" d="${path}"></path>${circles}${xLabels}<text class="axis-label" x="18" y="${margin.top + plotHeight / 2}" text-anchor="middle" transform="rotate(-90 18 ${margin.top + plotHeight / 2})">${escapeHtml(config.label)} (${config.unit})</text><text class="axis-label" x="${margin.left + plotWidth / 2}" y="${height - 2}" text-anchor="middle">Workout date</text><text class="latest-value" x="${labelX.toFixed(1)}" y="${Math.max(margin.top + 12, latestY - 10).toFixed(1)}" text-anchor="${labelAnchor}">${escapeHtml(format(latest))}</text>`;
+      }
+
       async function renderHistory() {
         const records = (await getAllRecords()).sort((a, b) => String(b.sessionDate).localeCompare(String(a.sessionDate)) || String(b.updatedAt).localeCompare(String(a.updatedAt)));
+        currentHistory = records;
+        renderTrend(records);
         const dates = new Set(records.map(record => record.sessionDate));
         historySummary.textContent = records.length ? `${records.length} exercises across ${dates.size} workout date${dates.size === 1 ? '' : 's'}.` : 'No workouts saved yet.';
         if (!records.length) {
@@ -748,6 +849,8 @@
       });
 
       dateInput.addEventListener('change', () => loadDate().catch(() => setMessage('Could not load that date.', true)));
+      trendExercise.addEventListener('change', () => renderTrend(currentHistory));
+      trendMetric.addEventListener('change', () => renderTrend(currentHistory));
 
       dbPromise.then(async () => {
         let legacy = [];
