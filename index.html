@@ -1,0 +1,761 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#11130f">
+  <title>Ashif's 8-Week Strength & Cut Plan</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+    :root {
+      --ink: #171914;
+      --muted: #6a6f64;
+      --paper: #f4f1e9;
+      --card: #fffdf7;
+      --line: #dcd8cc;
+      --orange: #e65f2b;
+      --orange-soft: #fde7dc;
+      --green: #337758;
+      --green-soft: #dcece2;
+      --blue: #315f83;
+      --blue-soft: #ddeaf2;
+      --yellow: #f2c14e;
+      --shadow: 0 12px 34px rgba(35, 38, 29, .08);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: Manrope, system-ui, sans-serif;
+      line-height: 1.45;
+    }
+    button, input { font: inherit; }
+    button { color: inherit; }
+
+    .shell { width: min(1080px, calc(100% - 32px)); margin: 0 auto; padding: 28px 0 64px; }
+    .hero {
+      position: relative;
+      overflow: hidden;
+      min-height: 265px;
+      padding: 34px;
+      border-radius: 28px;
+      background: #11130f;
+      color: white;
+      box-shadow: var(--shadow);
+    }
+    .hero::after {
+      content: "08";
+      position: absolute;
+      right: -18px;
+      bottom: -72px;
+      font-size: 240px;
+      line-height: 1;
+      font-weight: 800;
+      letter-spacing: -18px;
+      color: rgba(255,255,255,.045);
+    }
+    .eyebrow {
+      font-family: "DM Mono", monospace;
+      text-transform: uppercase;
+      letter-spacing: .16em;
+      font-size: 11px;
+      color: #c4c8ba;
+    }
+    h1 { max-width: 680px; margin: 16px 0 10px; font-size: clamp(36px, 7vw, 70px); line-height: .98; letter-spacing: -.055em; }
+    .hero p { max-width: 590px; margin: 0; color: #cdd0c7; font-size: 15px; }
+    .hero-stats { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 27px; position: relative; z-index: 1; }
+    .pill { padding: 8px 12px; border: 1px solid #3a3e35; border-radius: 999px; font-size: 12px; color: #eef0ea; background: rgba(255,255,255,.04); }
+    .pill strong { color: var(--yellow); }
+
+    .tabs {
+      position: sticky;
+      top: 10px;
+      z-index: 20;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 5px;
+      margin: 18px 0;
+      padding: 5px;
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      background: rgba(255,253,247,.9);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 6px 18px rgba(30,30,24,.05);
+    }
+    .tab { border: 0; background: transparent; padding: 10px 8px; border-radius: 11px; cursor: pointer; font-weight: 700; font-size: 13px; text-align: center; text-decoration: none; }
+    .tab:first-child { background: var(--ink); color: white; }
+    .panel { display: block; scroll-margin-top: 82px; animation: rise .25s ease both; }
+    @keyframes rise { from { opacity: 0; transform: translateY(5px); } }
+
+    .section-head { display: flex; justify-content: space-between; gap: 18px; align-items: end; margin: 36px 2px 17px; }
+    .section-head h2 { margin: 0; font-size: clamp(25px, 4vw, 38px); letter-spacing: -.04em; line-height: 1.05; }
+    .section-head p { max-width: 470px; margin: 0; color: var(--muted); font-size: 13px; }
+
+    .week { display: grid; grid-template-columns: repeat(7, 1fr); gap: 7px; margin-bottom: 12px; }
+    .day-btn { min-width: 0; border: 1px solid var(--line); border-radius: 13px; padding: 10px 5px; background: transparent; color: inherit; cursor: pointer; text-align: center; text-decoration: none; }
+    .day-btn span { display: block; font: 500 10px "DM Mono", monospace; color: var(--muted); }
+    .day-btn b { display: block; margin-top: 3px; font-size: 12px; }
+    .day-btn.active { border-color: var(--orange); background: var(--orange-soft); color: #9d3512; }
+
+    .workout-card, .meal-card, .info-card, .tracker-card {
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: var(--card);
+      box-shadow: var(--shadow);
+    }
+    .workout-card { margin-bottom: 12px; scroll-margin-top: 82px; }
+    .workout-head { display: flex; justify-content: space-between; gap: 12px; padding: 23px 24px 18px; border-bottom: 1px solid var(--line); }
+    .workout-head h3 { margin: 3px 0 0; font-size: 24px; letter-spacing: -.035em; }
+    .workout-head .focus { color: var(--muted); font-size: 12px; }
+    .session-badge { align-self: start; padding: 6px 9px; border-radius: 8px; background: var(--green-soft); color: var(--green); font: 500 10px "DM Mono", monospace; }
+    .exercise { display: grid; grid-template-columns: 30px minmax(0,1fr) 75px 62px 35px; align-items: center; gap: 10px; min-height: 61px; padding: 10px 24px; border-bottom: 1px solid #ebe7dc; }
+    .exercise:last-child { border-bottom: 0; }
+    .exercise-number { color: #a19f96; font: 500 11px "DM Mono", monospace; }
+    .exercise-name { font-weight: 700; font-size: 14px; }
+    .exercise-note { color: var(--muted); font-size: 11px; margin-top: 2px; }
+    .metric { text-align: center; }
+    .metric strong { display: block; font-size: 13px; }
+    .metric span { display: block; color: var(--muted); font: 400 9px "DM Mono", monospace; text-transform: uppercase; }
+    .check { width: 19px; height: 19px; accent-color: var(--green); cursor: pointer; }
+    .training-notes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 12px; }
+    .sync-panel { margin: 0 0 14px; padding: 18px; border: 1px solid var(--line); border-radius: 18px; background: var(--card); box-shadow: var(--shadow); }
+    .sync-panel h3 { margin: 0 0 4px; font-size: 18px; }
+    .sync-panel > p { margin: 0 0 14px; color: var(--muted); font-size: 12px; }
+    .sync-controls { display: grid; grid-template-columns: 170px repeat(3, auto); gap: 9px; align-items: end; }
+    .sync-field label { display: block; margin-bottom: 5px; color: var(--muted); font: 500 9px "DM Mono", monospace; text-transform: uppercase; }
+    .sync-field input { width: 100%; padding: 10px 11px; border: 1px solid var(--line); border-radius: 10px; background: #faf8f2; color: var(--ink); }
+    .sync-button, .session-save { border: 0; border-radius: 10px; padding: 10px 14px; background: var(--ink); color: white; font-weight: 800; cursor: pointer; }
+    .sync-status { min-height: 18px; margin-top: 9px; color: var(--green); font-size: 11px; }
+    .file-input { display: none; }
+    .danger-button { background: #8c2f24; }
+    .set-entry-grid { grid-column: 2 / -1; display: grid; grid-template-columns: repeat(4, minmax(92px,1fr)) 70px minmax(120px,1.2fr); gap: 7px; padding: 5px 0 4px; }
+    .set-entry, .exercise-extra { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
+    .set-entry span, .exercise-extra span { grid-column: 1 / -1; color: var(--muted); font: 500 8px "DM Mono", monospace; text-transform: uppercase; }
+    .set-entry input, .exercise-extra input { min-width: 0; width: 100%; padding: 7px 6px; border: 1px solid #d8d3c6; border-radius: 7px; background: white; font-size: 12px; }
+    .set-entry input::placeholder, .exercise-extra input::placeholder { color: #aaa89f; }
+    .session-actions { display: flex; justify-content: flex-end; align-items: center; gap: 12px; padding: 13px 18px; border-top: 1px solid var(--line); background: #faf8f2; }
+    .session-message { color: var(--muted); font-size: 11px; }
+    .history-card { overflow: hidden; border: 1px solid var(--line); border-radius: 20px; background: var(--card); box-shadow: var(--shadow); }
+    .history-toolbar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px; padding: 15px 18px; border-bottom: 1px solid var(--line); }
+    .history-toolbar p { margin: 0; color: var(--muted); font-size: 12px; }
+    .history-table-wrap { overflow-x: auto; }
+    .history-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    .history-table th, .history-table td { padding: 11px 13px; border-bottom: 1px solid #ebe7dc; text-align: left; vertical-align: top; white-space: nowrap; }
+    .history-table th { color: var(--muted); background: #faf8f2; font: 500 9px "DM Mono", monospace; text-transform: uppercase; letter-spacing: .05em; }
+    .history-table td.sets-cell { white-space: normal; min-width: 190px; }
+    .history-empty { padding: 34px 18px; color: var(--muted); text-align: center; }
+    .delete-entry { border: 1px solid #e5c3bc; border-radius: 7px; padding: 5px 8px; color: #8c2f24; background: #fff7f5; cursor: pointer; }
+    .setup-link { color: var(--blue); font-weight: 700; text-decoration: none; }
+    .info-card { padding: 17px; box-shadow: none; }
+    .info-card b { display: block; margin-bottom: 5px; font-size: 13px; }
+    .info-card p { margin: 0; color: var(--muted); font-size: 12px; }
+
+    .macro-grid { display: grid; grid-template-columns: 1.3fr repeat(3, 1fr); gap: 10px; margin-bottom: 14px; }
+    .macro { min-height: 112px; padding: 17px; border-radius: 18px; color: white; background: var(--ink); }
+    .macro:not(:first-child) { color: var(--ink); background: var(--card); border: 1px solid var(--line); }
+    .macro span { color: inherit; opacity: .65; font: 500 10px "DM Mono", monospace; text-transform: uppercase; letter-spacing: .08em; }
+    .macro strong { display: block; margin-top: 13px; font-size: clamp(23px, 4vw, 34px); line-height: 1; letter-spacing: -.045em; }
+    .macro small { display: block; margin-top: 5px; color: inherit; opacity: .65; font-size: 10px; }
+
+    .meals { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .meal-card { overflow: hidden; box-shadow: none; }
+    .meal-top { padding: 18px 19px 14px; background: linear-gradient(135deg, var(--green-soft), #eff5ef); }
+    .meal-card:nth-child(2) .meal-top { background: linear-gradient(135deg, var(--orange-soft), #fff1e9); }
+    .meal-card:nth-child(3) .meal-top { background: linear-gradient(135deg, var(--blue-soft), #eff6fa); }
+    .meal-card:nth-child(4) .meal-top { background: linear-gradient(135deg, #f7e9ba, #fff7dc); }
+    .meal-card:nth-child(5) .meal-top { background: linear-gradient(135deg, #e7e1ef, #f5f0fa); }
+    .meal-top .time { font: 500 10px "DM Mono", monospace; text-transform: uppercase; color: var(--muted); }
+    .meal-top h3 { margin: 7px 0 0; font-size: 20px; letter-spacing: -.03em; }
+    .meal-body { padding: 16px 19px 18px; }
+    .food-list { list-style: none; padding: 0; margin: 0; }
+    .food-list li { display: flex; justify-content: space-between; gap: 15px; padding: 7px 0; border-bottom: 1px dashed #dedacf; font-size: 13px; }
+    .food-list li:last-child { border-bottom: 0; }
+    .food-list span:last-child { color: var(--muted); text-align: right; }
+    .meal-macros { display: flex; gap: 7px; margin-top: 13px; flex-wrap: wrap; }
+    .meal-macros span { padding: 5px 8px; background: #f0eee7; border-radius: 7px; color: var(--muted); font: 500 10px "DM Mono", monospace; }
+    .meal-card.dinner { grid-column: 1 / -1; }
+    .meal-card.dinner .meal-body { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+
+    .adjuster { margin-top: 14px; padding: 22px; border-radius: 20px; background: var(--ink); color: white; }
+    .adjuster h3 { margin: 0 0 5px; font-size: 19px; }
+    .adjuster > p { margin: 0 0 17px; color: #bfc3b7; font-size: 12px; }
+    .rules { display: grid; grid-template-columns: repeat(3,1fr); gap: 9px; }
+    .rule { padding: 13px; border: 1px solid #3b3f36; border-radius: 13px; background: rgba(255,255,255,.035); }
+    .rule strong { display: block; color: var(--yellow); font-size: 12px; }
+    .rule span { display: block; margin-top: 4px; color: #ccd0c5; font-size: 11px; }
+
+    .progress-grid { display: grid; grid-template-columns: .85fr 1.15fr; gap: 12px; }
+    .tracker-card { padding: 22px; box-shadow: none; }
+    .tracker-card h3 { margin: 0 0 5px; font-size: 19px; }
+    .tracker-card > p { margin: 0 0 17px; color: var(--muted); font-size: 12px; }
+    .field { margin-top: 12px; }
+    .field label { display: block; margin-bottom: 5px; font: 500 10px "DM Mono", monospace; text-transform: uppercase; color: var(--muted); }
+    .field input { width: 100%; border: 1px solid var(--line); border-radius: 10px; padding: 10px 11px; background: #faf8f2; }
+    .save { width: 100%; margin-top: 15px; border: 0; border-radius: 11px; padding: 11px; background: var(--orange); color: white; font-weight: 800; cursor: pointer; }
+    .goal-row { display: flex; justify-content: space-between; gap: 16px; padding: 13px 0; border-bottom: 1px solid var(--line); }
+    .goal-row:last-child { border: 0; }
+    .goal-row span { color: var(--muted); font-size: 12px; }
+    .goal-row strong { font-size: 13px; text-align: right; }
+    .notice { margin-top: 14px; color: var(--muted); font-size: 11px; }
+    footer { margin-top: 30px; text-align: center; color: #8a8e84; font-size: 11px; }
+
+    @media (max-width: 720px) {
+      .shell { width: min(100% - 20px, 620px); padding-top: 10px; }
+      .hero { padding: 26px 21px; border-radius: 22px; }
+      .hero::after { font-size: 170px; bottom: -45px; }
+      .section-head { display: block; }
+      .section-head p { margin-top: 8px; }
+      .week { gap: 4px; }
+      .day-btn { padding: 9px 2px; border-radius: 10px; }
+      .day-btn b { font-size: 10px; }
+      .exercise { grid-template-columns: 23px minmax(0,1fr) 58px 28px; padding: 11px 13px; gap: 7px; }
+      .exercise .rest { display: none; }
+      .training-notes, .rules, .progress-grid { grid-template-columns: 1fr; }
+      .sync-controls { grid-template-columns: 1fr 1fr; }
+      .sync-field { grid-column: 1 / -1; }
+      .set-entry-grid { grid-column: 1 / -1; grid-template-columns: repeat(2, 1fr); }
+      .exercise-extra { grid-template-columns: 1fr; }
+      .macro-grid { grid-template-columns: repeat(3,1fr); }
+      .macro:first-child { grid-column: 1 / -1; }
+      .macro { min-height: 90px; padding: 14px; }
+      .meals { grid-template-columns: 1fr; }
+      .meal-card.dinner { grid-column: auto; }
+      .meal-card.dinner .meal-body { grid-template-columns: 1fr; gap: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header class="hero">
+      <div class="eyebrow">Ashif's training system · 8 weeks</div>
+      <h1>Get stronger.<br>Lean out steadily.</h1>
+      <p>A recovery-aware plan built around four high-quality lifting days, one optional arms day, and foods you already enjoy eating consistently.</p>
+      <div class="hero-stats">
+        <div class="pill"><strong>170 lb</strong> start</div>
+        <div class="pill"><strong>4 + 1</strong> lift days</div>
+        <div class="pill"><strong>155–175 g</strong> protein</div>
+        <div class="pill"><strong>0.5–1 lb</strong> weekly loss</div>
+      </div>
+    </header>
+
+    <nav class="tabs" aria-label="Plan sections">
+      <a class="tab" href="#training">Training</a>
+      <a class="tab" href="#nutrition">Eating plan</a>
+      <a class="tab" href="#progress">Progress</a>
+      <a class="tab" href="#history">History</a>
+    </nav>
+
+    <section class="panel" id="training">
+      <div class="section-head">
+        <div><div class="eyebrow" style="color:var(--orange)">Weekly plan</div><h2>Train hard. Recover fully.</h2></div>
+        <p>Most working sets stop with 1–3 good reps left. The optional Saturday session is skipped whenever recovery, sleep, or elbows feel poor.</p>
+      </div>
+      <div class="sync-panel">
+        <h3>Daily workout log</h3>
+        <p>Choose a date, enter weight and reps inside the workout, then save that session. IndexedDB keeps everything privately in this browser.</p>
+        <div class="sync-controls">
+          <div class="sync-field"><label for="sessionDate">Workout date</label><input id="sessionDate" type="date"></div>
+          <button class="sync-button" id="exportJson" type="button">Backup JSON</button>
+          <button class="sync-button" id="exportCsv" type="button">Export CSV</button>
+          <button class="sync-button" id="importJson" type="button">Restore backup</button>
+          <input class="file-input" id="importFile" type="file" accept="application/json,.json">
+        </div>
+        <div class="sync-status" id="syncStatus">Opening local database…</div>
+      </div>
+      <div class="week">
+        <a class="day-btn active" href="#monday"><span>Mon</span><b>Upper A</b></a>
+        <a class="day-btn" href="#tuesday"><span>Tue</span><b>Lower A</b></a>
+        <a class="day-btn" href="#wednesday"><span>Wed</span><b>Recover</b></a>
+        <a class="day-btn" href="#thursday"><span>Thu</span><b>Upper B</b></a>
+        <a class="day-btn" href="#friday"><span>Fri</span><b>Lower B</b></a>
+        <a class="day-btn" href="#saturday"><span>Sat</span><b>Optional</b></a>
+        <a class="day-btn" href="#sunday"><span>Sun</span><b>Rest</b></a>
+      </div>
+
+      <article class="workout-card" id="monday">
+        <div class="workout-head"><div><div class="focus">Chest · Back · Shoulders · Arms</div><h3>Monday — Upper Heavy</h3></div><div class="session-badge">Strength</div></div>
+        <div class="exercise"><div class="exercise-number">01</div><div><div class="exercise-name">Barbell bench press</div><div class="exercise-note">Keep 1–2 reps in reserve</div></div><div class="metric"><strong>4 × 5–7</strong><span>sets × reps</span></div><div class="metric rest"><strong>2–3m</strong><span>rest</span></div><input class="check" type="checkbox" aria-label="Complete barbell bench press"></div>
+        <div class="exercise"><div class="exercise-number">02</div><div><div class="exercise-name">Weighted pull-up</div><div class="exercise-note">Full stretch; chest toward bar</div></div><div class="metric"><strong>4 × 5–8</strong><span>sets × reps</span></div><div class="metric rest"><strong>2–3m</strong><span>rest</span></div><input class="check" type="checkbox" aria-label="Complete weighted pull-up"></div>
+        <div class="exercise"><div class="exercise-number">03</div><div><div class="exercise-name">Incline dumbbell press</div><div class="exercise-note">Controlled lowering</div></div><div class="metric"><strong>3 × 8–10</strong><span>sets × reps</span></div><div class="metric rest"><strong>2m</strong><span>rest</span></div><input class="check" type="checkbox" aria-label="Complete incline dumbbell press"></div>
+        <div class="exercise"><div class="exercise-number">04</div><div><div class="exercise-name">Barbell row</div><div class="exercise-note">Brace hard; pull toward lower ribs</div></div><div class="metric"><strong>3 × 6–10</strong><span>sets × reps</span></div><div class="metric rest"><strong>2m</strong><span>rest</span></div><input class="check" type="checkbox" aria-label="Complete barbell row"></div>
+        <div class="exercise"><div class="exercise-number">05</div><div><div class="exercise-name">Lateral raise</div><div class="exercise-note">Lead with elbows</div></div><div class="metric"><strong>3 × 12–20</strong><span>sets × reps</span></div><div class="metric rest"><strong>75s</strong><span>rest</span></div><input class="check" type="checkbox" aria-label="Complete lateral raise"></div>
+        <div class="exercise"><div class="exercise-number">06</div><div><div class="exercise-name">Incline dumbbell curl</div><div class="exercise-note">Full stretch</div></div><div class="metric"><strong>3 × 8–12</strong><span>sets × reps</span></div><div class="metric rest"><strong>90s</strong><span>rest</span></div><input class="check" type="checkbox" aria-label="Complete incline curl"></div>
+        <div class="exercise"><div class="exercise-number">07</div><div><div class="exercise-name">Dumbbell overhead triceps extension</div><div class="exercise-note">Deep stretch</div></div><div class="metric"><strong>3 × 10–15</strong><span>sets × reps</span></div><div class="metric rest"><strong>90s</strong><span>rest</span></div><input class="check" type="checkbox" aria-label="Complete triceps extension"></div>
+      </article>
+
+      <article class="workout-card" id="tuesday">
+        <div class="workout-head"><div><div class="focus">Quads · Hamstrings · Glutes · Core</div><h3>Tuesday — Lower Heavy</h3></div><div class="session-badge">Strength</div></div>
+        <div class="exercise"><div class="exercise-number">01</div><div><div class="exercise-name">Barbell back squat</div><div class="exercise-note">Full controlled range; brace before every rep</div></div><div class="metric"><strong>4 × 5–8</strong><span>sets × reps</span></div><div class="metric rest"><strong>3m</strong><span>rest</span></div><input class="check" type="checkbox"></div>
+        <div class="exercise"><div class="exercise-number">02</div><div><div class="exercise-name">Barbell Romanian deadlift</div><div class="exercise-note">Hips back; neutral spine</div></div><div class="metric"><strong>3 × 6–10</strong><span>sets × reps</span></div><div class="metric rest"><strong>3m</strong><span>rest</span></div><input class="check" type="checkbox"></div>
+        <div class="exercise"><div class="exercise-number">03</div><div><div class="exercise-name">Bulgarian split squat</div><div class="exercise-note">Reps listed per leg</div></div><div class="metric"><strong>3 × 8–10</strong><span>sets × reps</span></div><div class="metric rest"><strong>2m</strong><span>rest</span></div><input class="check" type="checkbox"></div>
+        <div class="exercise"><div class="exercise-number">04</div><div><div class="exercise-name">Sliding hamstring curl</div><div class="exercise-note">Control the eccentric</div></div><div class="metric"><strong>3 × 10–15</strong><span>sets × reps</span></div><div class="metric rest"><strong>90s</strong><span>rest</span></div><input class="check" type="checkbox"></div>
+        <div class="exercise"><div class="exercise-number">05</div><div><div class="exercise-name">Standing calf raise</div><div class="exercise-note">Pause in the stretch</div></div><div class="metric"><strong>3 × 8–15</strong><span>sets × reps</span></div><div class="metric rest"><strong>90s</strong><span>rest</span></div><input class="check" type="checkbox"></div>
+        <div class="exercise"><div class="exercise-number">06</div><div><div class="exercise-name">Hanging leg raise</div><div class="exercise-note">No swinging</div></div><div class="metric"><strong>3 × 8–15</strong><span>sets × reps</span></div><div class="metric rest"><strong>75s</strong><span>rest</span></div><input class="check" type="checkbox"></div>
+      </article>
+
+      <article class="workout-card" id="wednesday">
+        <div class="workout-head"><div><div class="focus">Easy movement · Mobility · Sleep</div><h3>Wednesday — Recovery</h3></div><div class="session-badge">Recovery</div></div>
+        <div class="exercise"><div class="exercise-number">01</div><div><div class="exercise-name">Zone 2 walk, bike or incline treadmill</div><div class="exercise-note">Conversational pace</div></div><div class="metric"><strong>25–35m</strong><span>duration</span></div><div class="metric rest"><strong>Easy</strong><span>effort</span></div><input class="check" type="checkbox"></div>
+        <div class="exercise"><div class="exercise-number">02</div><div><div class="exercise-name">Easy mobility</div><div class="exercise-note">Only if it helps you feel better</div></div><div class="metric"><strong>5–10m</strong><span>duration</span></div><div class="metric rest"><strong>Easy</strong><span>effort</span></div><input class="check" type="checkbox"></div>
+      </article>
+
+      <article class="workout-card" id="thursday">
+        <div class="workout-head"><div><div class="focus">Back · Chest · Delts · Arms</div><h3>Thursday — Upper Volume</h3></div><div class="session-badge">Hypertrophy</div></div>
+        <div class="exercise"><div class="exercise-number">01</div><div><div class="exercise-name">Barbell overhead press</div><div class="exercise-note">Stable torso</div></div><div class="metric"><strong>3 × 5–8</strong><span>sets × reps</span></div><div class="metric rest"><strong>2–3m</strong><span>rest</span></div><input class="check" type="checkbox"></div>
+        <div class="exercise"><div class="exercise-number">02</div><div><div class="exercise-name">Chest-supported dumbbell row</div><div class="exercise-note">Pause at the top</div></div><div class="metric"><strong>4 × 8–12</strong><span>sets × reps</span></div><div class="metric rest"><strong>2m</strong><span>rest</span></div><input class="check" type="checkbox"></div>
+        <div class="exercise"><div class="exercise-number">03</div><div><div class="exercise-name">Dumbbell bench press</div><div class="exercise-note">Full range of motion</div></div><div class="metric"><strong>3 × 8–12</strong><span>sets × reps</span></div><div class="metric rest"><strong>2m</strong><span>rest</span></div><input class="check" type="checkbox"></div>
+        <div class="exercise"><div class="exercise-number">04</div><div><div class="exercise-name">Pull-up or chin-up</div><div class="exercise-note">Add load when 12s are clean</div></div><div class="metric"><strong>3 × 8–12</strong><span>sets × reps</span></div><div class="metric rest"><strong>2m</strong><span>rest</span></div><input class="check" type="checkbox"></div>
+        <div class="exercise"><div class="exercise-number">05</div><div><div class="exercise-name">Rear-delt fly</div><div class="exercise-note">Keep traps relaxed</div></div><div class="metric"><strong>3 × 12–20</strong><span>sets × reps</span></div><div class="metric rest"><strong>75s</strong><span>rest</span></div><input class="check" type="checkbox"></div>
+        <div class="exercise"><div class="exercise-number">06</div><div><div class="exercise-name">Preacher curl</div><div class="exercise-note">No shoulder movement</div></div><div class="metric"><strong>4 × 8–12</strong><span>sets × reps</span></div><div class="metric rest"><strong>90s</strong><span>rest</span></div><input class="check" type="checkbox"></div>
+        <div class="exercise"><div class="exercise-number">07</div><div><div class="exercise-name">Dumbbell skull crusher</div><div class="exercise-note">Use a pain-free elbow angle</div></div><div class="metric"><strong>3 × 10–15</strong><span>sets × reps</span></div><div class="metric rest"><strong>90s</strong><span>rest</span></div><input class="check" type="checkbox"></div>
+      </article>
+
+      <article class="workout-card" id="friday">
+        <div class="workout-head"><div><div class="focus">Posterior chain · Quads · Core</div><h3>Friday — Lower Volume</h3></div><div class="session-badge">Hypertrophy</div></div>
+        <div class="exercise"><div class="exercise-number">01</div><div><div class="exercise-name">Barbell deadlift</div><div class="exercise-note">Crisp reps; never grind</div></div><div class="metric"><strong>2–3 × 3–5</strong><span>sets × reps</span></div><div class="metric rest"><strong>3m</strong><span>rest</span></div><input class="check" type="checkbox"></div>
+        <div class="exercise"><div class="exercise-number">02</div><div><div class="exercise-name">Barbell front squat</div><div class="exercise-note">Upright torso</div></div><div class="metric"><strong>3 × 6–10</strong><span>sets × reps</span></div><div class="metric rest"><strong>2–3m</strong><span>rest</span></div><input class="check" type="checkbox"></div>
+        <div class="exercise"><div class="exercise-number">03</div><div><div class="exercise-name">Dumbbell reverse lunge</div><div class="exercise-note">Reps listed per leg</div></div><div class="metric"><strong>3 × 8–12</strong><span>sets × reps</span></div><div class="metric rest"><strong>2m</strong><span>rest</span></div><input class="check" type="checkbox"></div>
+        <div class="exercise"><div class="exercise-number">04</div><div><div class="exercise-name">Barbell hip thrust</div><div class="exercise-note">Pause and squeeze at lockout</div></div><div class="metric"><strong>3 × 8–12</strong><span>sets × reps</span></div><div class="metric rest"><strong>2m</strong><span>rest</span></div><input class="check" type="checkbox"></div>
+        <div class="exercise"><div class="exercise-number">05</div><div><div class="exercise-name">Seated calf raise</div><div class="exercise-note">Slow stretch</div></div><div class="metric"><strong>3 × 12–20</strong><span>sets × reps</span></div><div class="metric rest"><strong>75s</strong><span>rest</span></div><input class="check" type="checkbox"></div>
+        <div class="exercise"><div class="exercise-number">06</div><div><div class="exercise-name">Dead bug + plank</div><div class="exercise-note">Brace and breathe</div></div><div class="metric"><strong>3 × 10 + 45s</strong><span>sets × reps</span></div><div class="metric rest"><strong>60s</strong><span>rest</span></div><input class="check" type="checkbox"></div>
+      </article>
+
+      <article class="workout-card" id="saturday">
+        <div class="workout-head"><div><div class="focus">Biceps · Triceps · Delts · Cardio</div><h3>Saturday — Arms + Conditioning</h3></div><div class="session-badge">Optional</div></div>
+        <div class="exercise"><div class="exercise-number">01</div><div><div class="exercise-name">Hammer curl</div><div class="exercise-note">Neutral wrist</div></div><div class="metric"><strong>3 × 10–15</strong><span>sets × reps</span></div><div class="metric rest"><strong>75s</strong><span>rest</span></div><input class="check" type="checkbox"></div>
+        <div class="exercise"><div class="exercise-number">02</div><div><div class="exercise-name">Dumbbell spider curl</div><div class="exercise-note">Smooth, controlled reps</div></div><div class="metric"><strong>3 × 10–15</strong><span>sets × reps</span></div><div class="metric rest"><strong>75s</strong><span>rest</span></div><input class="check" type="checkbox"></div>
+        <div class="exercise"><div class="exercise-number">03</div><div><div class="exercise-name">Close-grip barbell bench press</div><div class="exercise-note">Keep elbows comfortably tucked</div></div><div class="metric"><strong>3 × 6–10</strong><span>sets × reps</span></div><div class="metric rest"><strong>2m</strong><span>rest</span></div><input class="check" type="checkbox"></div>
+        <div class="exercise"><div class="exercise-number">04</div><div><div class="exercise-name">Lateral raise</div><div class="exercise-note">Stop before form breaks</div></div><div class="metric"><strong>3 × 15–25</strong><span>sets × reps</span></div><div class="metric rest"><strong>60s</strong><span>rest</span></div><input class="check" type="checkbox"></div>
+        <div class="exercise"><div class="exercise-number">05</div><div><div class="exercise-name">Zone 2 cardio</div><div class="exercise-note">Skip the lifting if fatigued</div></div><div class="metric"><strong>25–35m</strong><span>duration</span></div><div class="metric rest"><strong>Easy</strong><span>effort</span></div><input class="check" type="checkbox"></div>
+      </article>
+
+      <article class="workout-card" id="sunday">
+        <div class="workout-head"><div><div class="focus">Walking optional · Prepare meals · Recover</div><h3>Sunday — Full Rest</h3></div><div class="session-badge">Recovery</div></div>
+        <div style="padding:36px 24px;text-align:center;color:var(--muted)"><b style="display:block;color:var(--ink);margin-bottom:6px">Nothing to prove today.</b>Walk if you like. Eat to plan. Get ready for Monday.</div>
+      </article>
+      <div class="training-notes">
+        <div class="info-card"><b>Progression</b><p>Reach the top of the rep range on every set, then add the smallest available weight.</p></div>
+        <div class="info-card"><b>Rest periods</b><p>2–3 min for compounds; 60–90 sec for curls, extensions, raises and core work.</p></div>
+        <div class="info-card"><b>Deload</b><p>When performance drops for two sessions: halve sets and stay 3–5 reps from failure for one week.</p></div>
+      </div>
+    </section>
+
+    <section class="panel" id="nutrition">
+      <div class="section-head">
+        <div><div class="eyebrow" style="color:var(--green)">Daily eating plan</div><h2>Familiar food. Clear portions.</h2></div>
+        <p>Estimates vary by brands, oil and serving size. Start here, weigh consistently for two weeks, then use the adjustment rules below.</p>
+      </div>
+      <div class="macro-grid">
+        <div class="macro"><span>Starting target</span><strong>2,100–2,300</strong><small>calories per day</small></div>
+        <div class="macro"><span>Protein</span><strong>155–175g</strong><small>daily</small></div>
+        <div class="macro"><span>Fiber</span><strong>30g+</strong><small>daily</small></div>
+        <div class="macro"><span>Water</span><strong>2.5–3L</strong><small>more when sweating</small></div>
+      </div>
+      <div class="meals">
+        <article class="meal-card">
+          <div class="meal-top"><div class="time">60–90 min pre-workout</div><h3>Oats + milk</h3></div>
+          <div class="meal-body">
+            <ul class="food-list">
+              <li><span>Rolled oats</span><span>60 g</span></li>
+              <li><span>2% or skim milk</span><span>300 ml</span></li>
+              <li><span>Banana</span><span>½–1, optional</span></li>
+              <li><span>Cinnamon</span><span>as desired</span></li>
+            </ul>
+            <div class="meal-macros"><span>≈ 380 kcal</span><span>≈ 17g protein</span></div>
+          </div>
+        </article>
+
+        <article class="meal-card">
+          <div class="meal-top"><div class="time">Within 1–2 hr post-workout</div><h3>Protein shake</h3></div>
+          <div class="meal-body">
+            <ul class="food-list">
+              <li><span>Whey protein</span><span>1 scoop</span></li>
+              <li><span>Water</span><span>350–500 ml</span></li>
+              <li><span>Creatine monohydrate</span><span>3–5 g, optional</span></li>
+            </ul>
+            <div class="meal-macros"><span>≈ 130 kcal</span><span>≈ 25g protein</span></div>
+          </div>
+        </article>
+
+        <article class="meal-card">
+          <div class="meal-top"><div class="time">Lunch</div><h3>Roti + rajma plate</h3></div>
+          <div class="meal-body">
+            <ul class="food-list">
+              <li><span>Whole-wheat roti</span><span>1 medium</span></li>
+              <li><span>Rajma</span><span>1 cup</span></li>
+              <li><span>Whole eggs + whites</span><span>2 + 2</span></li>
+              <li><span>Steamed broccoli + kale</span><span>2 cups</span></li>
+              <li><span>Cooking oil</span><span>max 1 tsp</span></li>
+            </ul>
+            <div class="meal-macros"><span>≈ 650 kcal</span><span>≈ 42g protein</span><span>high fiber</span></div>
+          </div>
+        </article>
+
+        <article class="meal-card">
+          <div class="meal-top"><div class="time">Afternoon</div><h3>Egg toast</h3></div>
+          <div class="meal-body">
+            <ul class="food-list">
+              <li><span>Whole-grain toast</span><span>2 slices</span></li>
+              <li><span>Whole eggs</span><span>2</span></li>
+              <li><span>Reduced-fat cheese</span><span>1 slice</span></li>
+              <li><span>Fruit</span><span>1 serving</span></li>
+            </ul>
+            <div class="meal-macros"><span>≈ 470 kcal</span><span>≈ 27g protein</span></div>
+          </div>
+        </article>
+
+        <article class="meal-card dinner">
+          <div class="meal-top"><div class="time">Dinner</div><h3>Roast chicken + vegetables</h3></div>
+          <div class="meal-body">
+            <ul class="food-list">
+              <li><span>Roast chicken breast/thigh</span><span>6–8 oz cooked</span></li>
+              <li><span>Mixed roasted vegetables</span><span>2–3 cups</span></li>
+              <li><span>Sweet potato</span><span>150–250 g</span></li>
+              <li><span>Cooking oil</span><span>max 2 tsp</span></li>
+            </ul>
+            <div>
+              <div class="meal-macros"><span>≈ 600–700 kcal</span><span>≈ 55–65g protein</span></div>
+              <p class="notice">Use the larger sweet-potato serving on hard leg days. On rest days, use the smaller serving if your weekly weight trend has stalled.</p>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="adjuster">
+        <h3>The two-week adjustment rule</h3>
+        <p>Compare seven-day average morning weights—not one day's reading.</p>
+        <div class="rules">
+          <div class="rule"><strong>Down 0.5–1 lb/week</strong><span>Keep food exactly the same.</span></div>
+          <div class="rule"><strong>Flat for 2 weeks</strong><span>Remove about 150 kcal: less oil, cheese, or sweet potato.</span></div>
+          <div class="rule"><strong>Down over 1.25 lb/week</strong><span>Add about 150 kcal, mainly oats, roti, fruit, or sweet potato.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" id="progress">
+      <div class="section-head">
+        <div><div class="eyebrow" style="color:var(--blue)">Weekly review</div><h2>Measure the trend.</h2></div>
+        <p>Body weight is noisy. Record morning measurements under similar conditions and judge progress from weekly averages and waist change.</p>
+      </div>
+      <div class="progress-grid">
+        <article class="tracker-card">
+          <h3>Sunday check-in</h3>
+          <p>Record these in your preferred notes or tracking app.</p>
+          <div class="goal-row"><span>Seven-day average weight</span><strong>_____ lb</strong></div>
+          <div class="goal-row"><span>Waist at navel</span><strong>_____ in</strong></div>
+          <div class="goal-row"><span>Workouts completed</span><strong>_____ / 4</strong></div>
+          <div class="goal-row"><span>Average daily steps</span><strong>_____</strong></div>
+          <div class="goal-row"><span>Average sleep</span><strong>_____ hours</strong></div>
+          <div class="goal-row"><span>Food plan followed</span><strong>_____ / 7 days</strong></div>
+        </article>
+        <article class="tracker-card">
+          <h3>Eight-week scoreboard</h3>
+          <p>Prioritize repeatable behavior, not a perfect day.</p>
+          <div class="goal-row"><span>Target rate</span><strong>0.5–1 lb loss / week</strong></div>
+          <div class="goal-row"><span>Likely 15% body-fat scale weight</span><strong>About 160 lb*</strong></div>
+          <div class="goal-row"><span>Daily protein</span><strong>155–175 g</strong></div>
+          <div class="goal-row"><span>Daily movement</span><strong>8,000–10,000 steps</strong></div>
+          <div class="goal-row"><span>Cardio</span><strong>2–3 × 25–35 min Zone 2</strong></div>
+          <div class="goal-row"><span>Sleep target</span><strong>7–9 hours</strong></div>
+          <p class="notice">*Estimate assumes your current body-fat estimate is reasonably accurate and lean mass is maintained. Use waist, photos, strength and fit of clothing alongside scale weight.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel" id="history">
+      <div class="section-head">
+        <div><div class="eyebrow" style="color:var(--orange)">Training history</div><h2>Your saved sessions.</h2></div>
+        <p>Entries live only in this browser. Download a JSON backup regularly, especially before clearing browser data or changing devices.</p>
+      </div>
+      <div class="history-card">
+        <div class="history-toolbar">
+          <p id="historySummary">Loading workout history…</p>
+          <button class="sync-button danger-button" id="clearHistory" type="button">Clear all data</button>
+        </div>
+        <div class="history-table-wrap">
+          <table class="history-table">
+            <thead><tr><th>Date</th><th>Session</th><th>Exercise</th><th>Sets</th><th>Volume</th><th>RIR</th><th>Notes</th><th></th></tr></thead>
+            <tbody id="historyRows"><tr><td class="history-empty" colspan="8">Loading…</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <footer>Built for consistency · Adjust around your results, recovery and medical needs.</footer>
+  </main>
+
+  <script>
+    (() => {
+      const DB_NAME = 'ashifFitnessTracker';
+      const STORE_NAME = 'workouts';
+      const strengthCards = [...document.querySelectorAll('.workout-card')].filter(card => !['wednesday','sunday'].includes(card.id));
+      const dateInput = document.getElementById('sessionDate');
+      const status = document.getElementById('syncStatus');
+      const historyRows = document.getElementById('historyRows');
+      const historySummary = document.getElementById('historySummary');
+
+      const localDate = () => {
+        const now = new Date();
+        return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+      };
+      dateInput.value = localDate();
+
+      const numberOrBlank = value => value === '' ? null : Number(value);
+      const dbPromise = new Promise((resolve, reject) => {
+        const request = indexedDB.open(DB_NAME, 1);
+        request.onupgradeneeded = () => {
+          const db = request.result;
+          const store = db.createObjectStore(STORE_NAME, { keyPath: 'id' });
+          store.createIndex('sessionDate', 'sessionDate');
+          store.createIndex('updatedAt', 'updatedAt');
+        };
+        request.onsuccess = () => resolve(request.result);
+        request.onerror = () => reject(request.error);
+      });
+
+      const transact = async (mode, operation) => {
+        const db = await dbPromise;
+        return new Promise((resolve, reject) => {
+          const transaction = db.transaction(STORE_NAME, mode);
+          const store = transaction.objectStore(STORE_NAME);
+          let result;
+          try { result = operation(store); } catch (error) { reject(error); return; }
+          transaction.oncomplete = () => resolve(result);
+          transaction.onerror = () => reject(transaction.error);
+          transaction.onabort = () => reject(transaction.error || new Error('Database transaction aborted'));
+        });
+      };
+
+      const getAllRecords = async () => {
+        const db = await dbPromise;
+        return new Promise((resolve, reject) => {
+          const request = db.transaction(STORE_NAME).objectStore(STORE_NAME).getAll();
+          request.onsuccess = () => resolve(request.result || []);
+          request.onerror = () => reject(request.error);
+        });
+      };
+
+      const getDateRecords = async sessionDate => {
+        const db = await dbPromise;
+        return new Promise((resolve, reject) => {
+          const request = db.transaction(STORE_NAME).objectStore(STORE_NAME).index('sessionDate').getAll(sessionDate);
+          request.onsuccess = () => resolve(request.result || []);
+          request.onerror = () => reject(request.error);
+        });
+      };
+
+      const putRecords = records => transact('readwrite', store => records.forEach(record => store.put(record)));
+      const deleteRecord = id => transact('readwrite', store => store.delete(id));
+      const clearRecords = () => transact('readwrite', store => store.clear());
+
+      const setMessage = (message, isError = false) => {
+        status.textContent = message;
+        status.style.color = isError ? '#8c2f24' : 'var(--green)';
+      };
+
+      strengthCards.forEach(card => {
+        const heading = card.querySelector('h3')?.textContent || '';
+        const day = heading.split('—')[0].trim();
+        const session = heading.split('—')[1]?.trim() || heading;
+
+        card.querySelectorAll('.exercise').forEach((row, exerciseIndex) => {
+          const exercise = row.querySelector('.exercise-name')?.textContent?.trim();
+          const target = row.querySelector('.metric strong')?.textContent?.trim();
+          if (!exercise || !target || !target.includes('×') || exercise.includes('Zone 2')) return;
+
+          const grid = document.createElement('div');
+          grid.className = 'set-entry-grid';
+          grid.dataset.exercise = exercise;
+          grid.dataset.target = target;
+          grid.dataset.day = day;
+          grid.dataset.session = session;
+          grid.dataset.exerciseIndex = exerciseIndex;
+
+          const prescribedSets = Math.min(4, Math.max(1, Number.parseInt(target, 10) || 3));
+          grid.dataset.setCount = prescribedSets;
+          for (let set = 1; set <= prescribedSets; set++) {
+            const group = document.createElement('label');
+            group.className = 'set-entry';
+            group.innerHTML = `<span>Set ${set}</span><input class="set-weight" inputmode="decimal" type="number" min="0" step="0.5" placeholder="lb"><input class="set-reps" inputmode="numeric" type="number" min="0" step="1" placeholder="reps">`;
+            grid.appendChild(group);
+          }
+
+          const rir = document.createElement('label');
+          rir.className = 'exercise-extra';
+          rir.innerHTML = '<span>Final-set RIR</span><input class="set-rir" inputmode="numeric" type="number" min="0" max="5" step="1" placeholder="0–5">';
+          grid.appendChild(rir);
+
+          const notes = document.createElement('label');
+          notes.className = 'exercise-extra';
+          notes.innerHTML = '<span>Notes</span><input class="set-notes" type="text" placeholder="Optional">';
+          grid.appendChild(notes);
+          row.appendChild(grid);
+        });
+
+        const actions = document.createElement('div');
+        actions.className = 'session-actions';
+        actions.innerHTML = '<span class="session-message"></span><button class="session-save" type="button">Save this session</button>';
+        card.appendChild(actions);
+
+        actions.querySelector('.session-save').addEventListener('click', async () => {
+          if (!dateInput.value) {
+            actions.querySelector('.session-message').textContent = 'Choose a workout date first.';
+            return;
+          }
+          const records = [...card.querySelectorAll('.set-entry-grid')].map(grid => {
+            const weights = [...grid.querySelectorAll('.set-weight')].map(i => numberOrBlank(i.value));
+            const reps = [...grid.querySelectorAll('.set-reps')].map(i => numberOrBlank(i.value));
+            const hasEntry = [...weights, ...reps].some(v => v !== null);
+            if (!hasEntry) return null;
+            const totalReps = reps.reduce((sum, v) => sum + (v || 0), 0);
+            const volume = weights.reduce((sum, wt, i) => sum + ((wt || 0) * (reps[i] || 0)), 0);
+            return {
+              id: `${dateInput.value}|${card.id}|${grid.dataset.exerciseIndex}`,
+              updatedAt: new Date().toISOString(),
+              sessionDate: dateInput.value,
+              day: grid.dataset.day,
+              session: grid.dataset.session,
+              exercise: grid.dataset.exercise,
+              target: grid.dataset.target,
+              sets: weights.map((weight, i) => ({ weight, reps: reps[i] })),
+              rir: numberOrBlank(grid.querySelector('.set-rir').value),
+              totalReps,
+              volume,
+              notes: grid.querySelector('.set-notes').value.trim()
+            };
+          }).filter(Boolean);
+
+          const message = actions.querySelector('.session-message');
+          if (!records.length) {
+            message.textContent = 'Enter at least one set first.';
+            return;
+          }
+          try {
+            await putRecords(records);
+            message.textContent = `${records.length} exercise${records.length === 1 ? '' : 's'} saved in this browser.`;
+            card.querySelectorAll('.set-entry-grid').forEach(grid => grid.closest('.exercise')?.querySelector('.check')?.setAttribute('checked', ''));
+            await renderHistory();
+          } catch (error) {
+            message.textContent = 'Could not save. Check browser storage permissions.';
+          }
+        });
+      });
+
+      async function loadDate() {
+        document.querySelectorAll('.set-entry-grid input').forEach(input => { input.value = ''; });
+        document.querySelectorAll('.workout-card .check').forEach(check => { check.checked = false; });
+        if (!dateInput.value) return;
+        const records = await getDateRecords(dateInput.value);
+        const byId = new Map(records.map(record => [record.id, record]));
+        strengthCards.forEach(card => {
+          card.querySelectorAll('.set-entry-grid').forEach(grid => {
+            const record = byId.get(`${dateInput.value}|${card.id}|${grid.dataset.exerciseIndex}`);
+            if (!record) return;
+            [...grid.querySelectorAll('.set-weight')].forEach((input, index) => { input.value = record.sets?.[index]?.weight ?? ''; });
+            [...grid.querySelectorAll('.set-reps')].forEach((input, index) => { input.value = record.sets?.[index]?.reps ?? ''; });
+            grid.querySelector('.set-rir').value = record.rir ?? '';
+            grid.querySelector('.set-notes').value = record.notes || '';
+            const check = grid.closest('.exercise')?.querySelector('.check');
+            if (check) check.checked = true;
+          });
+        });
+        setMessage(records.length ? `${records.length} saved exercise record${records.length === 1 ? '' : 's'} loaded for ${dateInput.value}.` : `Ready to log ${dateInput.value}.`);
+      }
+
+      const escapeHtml = value => String(value ?? '').replace(/[&<>'"]/g, character => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', "'":'&#39;', '"':'&quot;' })[character]);
+
+      async function renderHistory() {
+        const records = (await getAllRecords()).sort((a, b) => String(b.sessionDate).localeCompare(String(a.sessionDate)) || String(b.updatedAt).localeCompare(String(a.updatedAt)));
+        const dates = new Set(records.map(record => record.sessionDate));
+        historySummary.textContent = records.length ? `${records.length} exercises across ${dates.size} workout date${dates.size === 1 ? '' : 's'}.` : 'No workouts saved yet.';
+        if (!records.length) {
+          historyRows.innerHTML = '<tr><td class="history-empty" colspan="8">Enter your weights and reps above, then save a session.</td></tr>';
+          return;
+        }
+        historyRows.innerHTML = records.slice(0, 250).map(record => {
+          const sets = (record.sets || []).filter(set => set.weight !== null || set.reps !== null).map((set, index) => `S${index + 1}: ${set.weight ?? '—'} lb × ${set.reps ?? '—'}`).join(' · ');
+          return `<tr><td>${escapeHtml(record.sessionDate)}</td><td>${escapeHtml(record.day)}<br><small>${escapeHtml(record.session)}</small></td><td>${escapeHtml(record.exercise)}</td><td class="sets-cell">${escapeHtml(sets)}</td><td>${Number(record.volume || 0).toLocaleString()} lb</td><td>${escapeHtml(record.rir ?? '—')}</td><td>${escapeHtml(record.notes || '—')}</td><td><button class="delete-entry" type="button" data-delete-id="${escapeHtml(record.id)}">Delete</button></td></tr>`;
+        }).join('');
+        historyRows.querySelectorAll('[data-delete-id]').forEach(button => button.addEventListener('click', async () => {
+          if (!confirm('Delete this exercise record?')) return;
+          await deleteRecord(button.dataset.deleteId);
+          await renderHistory();
+          await loadDate();
+        }));
+      }
+
+      const download = (filename, contents, type) => {
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(new Blob([contents], { type }));
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        URL.revokeObjectURL(link.href);
+        link.remove();
+      };
+
+      document.getElementById('exportJson').addEventListener('click', async () => {
+        const records = await getAllRecords();
+        download(`ashif-workout-backup-${localDate()}.json`, JSON.stringify({ version: 1, exportedAt: new Date().toISOString(), records }, null, 2), 'application/json');
+        setMessage(`${records.length} exercise records backed up as JSON.`);
+      });
+
+      document.getElementById('exportCsv').addEventListener('click', async () => {
+        const records = await getAllRecords();
+        const headers = ['Date','Day','Session','Exercise','Target','Set 1 Weight','Set 1 Reps','Set 2 Weight','Set 2 Reps','Set 3 Weight','Set 3 Reps','Set 4 Weight','Set 4 Reps','RIR','Total Reps','Volume','Notes'];
+        const csvCell = value => `"${String(value ?? '').replace(/"/g, '""')}"`;
+        const rows = records.map(record => {
+          const setCells = Array.from({ length: 4 }, (_, index) => [record.sets?.[index]?.weight ?? '', record.sets?.[index]?.reps ?? '']).flat();
+          return [record.sessionDate, record.day, record.session, record.exercise, record.target, ...setCells, record.rir ?? '', record.totalReps ?? '', record.volume ?? '', record.notes ?? ''].map(csvCell).join(',');
+        });
+        download(`ashif-workout-log-${localDate()}.csv`, [headers.map(csvCell).join(','), ...rows].join('\n'), 'text/csv;charset=utf-8');
+        setMessage(`${records.length} exercise records exported as CSV.`);
+      });
+
+      const importFile = document.getElementById('importFile');
+      document.getElementById('importJson').addEventListener('click', () => importFile.click());
+      importFile.addEventListener('change', async () => {
+        const file = importFile.files?.[0];
+        if (!file) return;
+        try {
+          const parsed = JSON.parse(await file.text());
+          const records = Array.isArray(parsed) ? parsed : parsed.records;
+          if (!Array.isArray(records) || records.some(record => !record?.id || !record?.sessionDate || !record?.exercise)) throw new Error('Invalid backup');
+          await putRecords(records);
+          setMessage(`${records.length} records restored. Matching entries were updated.`);
+          await renderHistory();
+          await loadDate();
+        } catch (error) {
+          setMessage('That file is not a valid workout backup.', true);
+        } finally {
+          importFile.value = '';
+        }
+      });
+
+      document.getElementById('clearHistory').addEventListener('click', async () => {
+        if (!confirm('Permanently delete every saved workout from this browser? Export a backup first if you may need it.')) return;
+        await clearRecords();
+        await renderHistory();
+        await loadDate();
+        setMessage('All locally saved workout data was deleted.');
+      });
+
+      dateInput.addEventListener('change', () => loadDate().catch(() => setMessage('Could not load that date.', true)));
+
+      dbPromise.then(async () => {
+        const legacy = JSON.parse(localStorage.getItem('ashifWorkoutLog') || '[]');
+        if (Array.isArray(legacy) && legacy.length && !localStorage.getItem('ashifIndexedDbMigration')) {
+          await putRecords(legacy.map(record => ({ ...record, updatedAt: record.updatedAt || record.timestamp || new Date().toISOString() })));
+          localStorage.setItem('ashifIndexedDbMigration', 'complete');
+        }
+        await renderHistory();
+        await loadDate();
+      }).catch(() => setMessage('IndexedDB is unavailable. Allow site storage or use a standard browser window.', true));
+    })();
+  </script>
+</body>
+</html>
