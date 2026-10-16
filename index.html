@@ -269,7 +269,7 @@
     <section class="panel" id="training">
       <div class="section-head">
         <div><div class="eyebrow" style="color:var(--orange)">Weekly plan</div><h2>Train hard. Recover fully.</h2></div>
-        <p>Most working sets stop with 1–3 good reps left. The optional Saturday session is skipped whenever recovery, sleep, or elbows feel poor.</p>
+        <p>Most working sets stop with 1–3 good reps left. Monday and Thursday are full rest days; the optional Sunday session is skipped whenever recovery, sleep, or elbows feel poor.</p>
       </div>
       <div class="sync-panel">
         <h3>Daily workout log</h3>
@@ -284,28 +284,33 @@
         <div class="sync-status" id="syncStatus">Opening local database…</div>
       </div>
       <div class="week">
-        <a class="day-btn active" href="#monday"><span>Mon</span><b>Upper A</b></a>
-        <a class="day-btn" href="#tuesday"><span>Tue</span><b>Lower A</b></a>
-        <a class="day-btn" href="#wednesday"><span>Wed</span><b>Recover</b></a>
-        <a class="day-btn" href="#thursday"><span>Thu</span><b>Upper B</b></a>
-        <a class="day-btn" href="#friday"><span>Fri</span><b>Lower B</b></a>
-        <a class="day-btn" href="#saturday"><span>Sat</span><b>Optional</b></a>
-        <a class="day-btn" href="#sunday"><span>Sun</span><b>Rest</b></a>
+        <a class="day-btn" href="#monday"><span>Mon</span><b>Rest</b></a>
+        <a class="day-btn active" href="#tuesday"><span>Tue</span><b>Upper A</b></a>
+        <a class="day-btn" href="#wednesday"><span>Wed</span><b>Lower A</b></a>
+        <a class="day-btn" href="#thursday"><span>Thu</span><b>Rest</b></a>
+        <a class="day-btn" href="#friday"><span>Fri</span><b>Upper B</b></a>
+        <a class="day-btn" href="#saturday"><span>Sat</span><b>Lower B</b></a>
+        <a class="day-btn" href="#sunday"><span>Sun</span><b>Optional</b></a>
       </div>
 
       <article class="workout-card" id="monday">
-        <div class="workout-head"><div><div class="focus">Chest · Back · Shoulders · Arms</div><h3>Monday — Upper Heavy</h3></div><div class="session-badge">Strength</div></div>
+        <div class="workout-head"><div><div class="focus">Walking optional · Prepare meals · Recover</div><h3>Monday — Full Rest</h3></div><div class="session-badge">Recovery</div></div>
+        <div style="padding:36px 24px;text-align:center;color:var(--muted)"><b style="display:block;color:var(--ink);margin-bottom:6px">Recover fully.</b>Walk if you like. Eat to plan. Get ready for Tuesday.</div>
+      </article>
+
+      <article class="workout-card" id="tuesday">
+        <div class="workout-head"><div><div class="focus">Chest · Back · Shoulders · Arms</div><h3>Tuesday — Upper Heavy</h3></div><div class="session-badge">Strength</div></div>
         <div class="exercise"><div class="exercise-number">01</div><div><div class="exercise-name">Barbell bench press</div><div class="exercise-note">Keep 1–2 reps in reserve</div></div><div class="metric"><strong>4 × 5–7</strong><span>sets × reps</span></div><div class="metric rest"><strong>2–3m</strong><span>rest</span></div><input class="check" type="checkbox" aria-label="Complete barbell bench press"></div>
         <div class="exercise"><div class="exercise-number">02</div><div><div class="exercise-name">Weighted pull-up</div><div class="exercise-note">Full stretch; chest toward bar</div></div><div class="metric"><strong>4 × 5–8</strong><span>sets × reps</span></div><div class="metric rest"><strong>2–3m</strong><span>rest</span></div><input class="check" type="checkbox" aria-label="Complete weighted pull-up"></div>
         <div class="exercise"><div class="exercise-number">03</div><div><div class="exercise-name">Incline dumbbell press</div><div class="exercise-note">Controlled lowering</div></div><div class="metric"><strong>3 × 8–10</strong><span>sets × reps</span></div><div class="metric rest"><strong>2m</strong><span>rest</span></div><input class="check" type="checkbox" aria-label="Complete incline dumbbell press"></div>
         <div class="exercise"><div class="exercise-number">04</div><div><div class="exercise-name">Barbell row</div><div class="exercise-note">Brace hard; pull toward lower ribs</div></div><div class="metric"><strong>3 × 6–10</strong><span>sets × reps</span></div><div class="metric rest"><strong>2m</strong><span>rest</span></div><input class="check" type="checkbox" aria-label="Complete barbell row"></div>
         <div class="exercise"><div class="exercise-number">05</div><div><div class="exercise-name">Lateral raise</div><div class="exercise-note">Lead with elbows</div></div><div class="metric"><strong>3 × 12–20</strong><span>sets × reps</span></div><div class="metric rest"><strong>75s</strong><span>rest</span></div><input class="check" type="checkbox" aria-label="Complete lateral raise"></div>
-        <div class="exercise"><div class="exercise-number">06</div><div><div class="exercise-name">Incline dumbbell curl</div><div class="exercise-note">Full stretch</div></div><div class="metric"><strong>3 × 8–12</strong><span>sets × reps</span></div><div class="metric rest"><strong>90s</strong><span>rest</span></div><input class="check" type="checkbox" aria-label="Complete incline curl"></div>
+        <div class="exercise"><div class="exercise-number">06</div><div><div class="exercise-name">Barbell curl</div><div class="exercise-note">Strict reps; add weight after reaching 10s</div></div><div class="metric"><strong>3 × 6–10</strong><span>sets × reps</span></div><div class="metric rest"><strong>90s</strong><span>rest</span></div><input class="check" type="checkbox" aria-label="Complete barbell curl"></div>
         <div class="exercise"><div class="exercise-number">07</div><div><div class="exercise-name">Dumbbell overhead triceps extension</div><div class="exercise-note">Deep stretch</div></div><div class="metric"><strong>3 × 10–15</strong><span>sets × reps</span></div><div class="metric rest"><strong>90s</strong><span>rest</span></div><input class="check" type="checkbox" aria-label="Complete triceps extension"></div>
       </article>
 
-      <article class="workout-card" id="tuesday">
-        <div class="workout-head"><div><div class="focus">Quads · Hamstrings · Glutes · Core</div><h3>Tuesday — Lower Heavy</h3></div><div class="session-badge">Strength</div></div>
+      <article class="workout-card" id="wednesday">
+        <div class="workout-head"><div><div class="focus">Quads · Hamstrings · Glutes · Core</div><h3>Wednesday — Lower Heavy</h3></div><div class="session-badge">Strength</div></div>
         <div class="exercise"><div class="exercise-number">01</div><div><div class="exercise-name">Barbell back squat</div><div class="exercise-note">Full controlled range; brace before every rep</div></div><div class="metric"><strong>4 × 5–8</strong><span>sets × reps</span></div><div class="metric rest"><strong>3m</strong><span>rest</span></div><input class="check" type="checkbox"></div>
         <div class="exercise"><div class="exercise-number">02</div><div><div class="exercise-name">Barbell Romanian deadlift</div><div class="exercise-note">Hips back; neutral spine</div></div><div class="metric"><strong>3 × 6–10</strong><span>sets × reps</span></div><div class="metric rest"><strong>3m</strong><span>rest</span></div><input class="check" type="checkbox"></div>
         <div class="exercise"><div class="exercise-number">03</div><div><div class="exercise-name">Bulgarian split squat</div><div class="exercise-note">Reps listed per leg</div></div><div class="metric"><strong>3 × 8–10</strong><span>sets × reps</span></div><div class="metric rest"><strong>2m</strong><span>rest</span></div><input class="check" type="checkbox"></div>
@@ -314,25 +319,24 @@
         <div class="exercise"><div class="exercise-number">06</div><div><div class="exercise-name">Hanging leg raise</div><div class="exercise-note">No swinging</div></div><div class="metric"><strong>3 × 8–15</strong><span>sets × reps</span></div><div class="metric rest"><strong>75s</strong><span>rest</span></div><input class="check" type="checkbox"></div>
       </article>
 
-      <article class="workout-card" id="wednesday">
-        <div class="workout-head"><div><div class="focus">Easy movement · Mobility · Sleep</div><h3>Wednesday — Recovery</h3></div><div class="session-badge">Recovery</div></div>
-        <div class="exercise"><div class="exercise-number">01</div><div><div class="exercise-name">Zone 2 walk, bike or incline treadmill</div><div class="exercise-note">Conversational pace</div></div><div class="metric"><strong>25–35m</strong><span>duration</span></div><div class="metric rest"><strong>Easy</strong><span>effort</span></div><input class="check" type="checkbox"></div>
-        <div class="exercise"><div class="exercise-number">02</div><div><div class="exercise-name">Easy mobility</div><div class="exercise-note">Only if it helps you feel better</div></div><div class="metric"><strong>5–10m</strong><span>duration</span></div><div class="metric rest"><strong>Easy</strong><span>effort</span></div><input class="check" type="checkbox"></div>
+      <article class="workout-card" id="thursday">
+        <div class="workout-head"><div><div class="focus">Walking optional · Mobility · Sleep</div><h3>Thursday — Full Rest</h3></div><div class="session-badge">Recovery</div></div>
+        <div style="padding:36px 24px;text-align:center;color:var(--muted)"><b style="display:block;color:var(--ink);margin-bottom:6px">Let the work settle in.</b>Easy walking or mobility is optional. No programmed training.</div>
       </article>
 
-      <article class="workout-card" id="thursday">
-        <div class="workout-head"><div><div class="focus">Back · Chest · Delts · Arms</div><h3>Thursday — Upper Volume</h3></div><div class="session-badge">Hypertrophy</div></div>
+      <article class="workout-card" id="friday">
+        <div class="workout-head"><div><div class="focus">Back · Chest · Delts · Arms</div><h3>Friday — Upper Volume</h3></div><div class="session-badge">Hypertrophy</div></div>
         <div class="exercise"><div class="exercise-number">01</div><div><div class="exercise-name">Barbell overhead press</div><div class="exercise-note">Stable torso</div></div><div class="metric"><strong>3 × 5–8</strong><span>sets × reps</span></div><div class="metric rest"><strong>2–3m</strong><span>rest</span></div><input class="check" type="checkbox"></div>
         <div class="exercise"><div class="exercise-number">02</div><div><div class="exercise-name">Chest-supported dumbbell row</div><div class="exercise-note">Pause at the top</div></div><div class="metric"><strong>4 × 8–12</strong><span>sets × reps</span></div><div class="metric rest"><strong>2m</strong><span>rest</span></div><input class="check" type="checkbox"></div>
         <div class="exercise"><div class="exercise-number">03</div><div><div class="exercise-name">Dumbbell bench press</div><div class="exercise-note">Full range of motion</div></div><div class="metric"><strong>3 × 8–12</strong><span>sets × reps</span></div><div class="metric rest"><strong>2m</strong><span>rest</span></div><input class="check" type="checkbox"></div>
         <div class="exercise"><div class="exercise-number">04</div><div><div class="exercise-name">Pull-up or chin-up</div><div class="exercise-note">Add load when 12s are clean</div></div><div class="metric"><strong>3 × 8–12</strong><span>sets × reps</span></div><div class="metric rest"><strong>2m</strong><span>rest</span></div><input class="check" type="checkbox"></div>
         <div class="exercise"><div class="exercise-number">05</div><div><div class="exercise-name">Rear-delt fly</div><div class="exercise-note">Keep traps relaxed</div></div><div class="metric"><strong>3 × 12–20</strong><span>sets × reps</span></div><div class="metric rest"><strong>75s</strong><span>rest</span></div><input class="check" type="checkbox"></div>
-        <div class="exercise"><div class="exercise-number">06</div><div><div class="exercise-name">Preacher curl</div><div class="exercise-note">No shoulder movement</div></div><div class="metric"><strong>4 × 8–12</strong><span>sets × reps</span></div><div class="metric rest"><strong>90s</strong><span>rest</span></div><input class="check" type="checkbox"></div>
+        <div class="exercise"><div class="exercise-number">06</div><div><div class="exercise-name">Incline dumbbell curl</div><div class="exercise-note">Full stretch; controlled lowering</div></div><div class="metric"><strong>3 × 10–15</strong><span>sets × reps</span></div><div class="metric rest"><strong>90s</strong><span>rest</span></div><input class="check" type="checkbox"></div>
         <div class="exercise"><div class="exercise-number">07</div><div><div class="exercise-name">Dumbbell skull crusher</div><div class="exercise-note">Use a pain-free elbow angle</div></div><div class="metric"><strong>3 × 10–15</strong><span>sets × reps</span></div><div class="metric rest"><strong>90s</strong><span>rest</span></div><input class="check" type="checkbox"></div>
       </article>
 
-      <article class="workout-card" id="friday">
-        <div class="workout-head"><div><div class="focus">Posterior chain · Quads · Core</div><h3>Friday — Lower Volume</h3></div><div class="session-badge">Hypertrophy</div></div>
+      <article class="workout-card" id="saturday">
+        <div class="workout-head"><div><div class="focus">Posterior chain · Quads · Core</div><h3>Saturday — Lower Volume</h3></div><div class="session-badge">Hypertrophy</div></div>
         <div class="exercise"><div class="exercise-number">01</div><div><div class="exercise-name">Barbell deadlift</div><div class="exercise-note">Crisp reps; never grind</div></div><div class="metric"><strong>2–3 × 3–5</strong><span>sets × reps</span></div><div class="metric rest"><strong>3m</strong><span>rest</span></div><input class="check" type="checkbox"></div>
         <div class="exercise"><div class="exercise-number">02</div><div><div class="exercise-name">Barbell front squat</div><div class="exercise-note">Upright torso</div></div><div class="metric"><strong>3 × 6–10</strong><span>sets × reps</span></div><div class="metric rest"><strong>2–3m</strong><span>rest</span></div><input class="check" type="checkbox"></div>
         <div class="exercise"><div class="exercise-number">03</div><div><div class="exercise-name">Dumbbell reverse lunge</div><div class="exercise-note">Reps listed per leg</div></div><div class="metric"><strong>3 × 8–12</strong><span>sets × reps</span></div><div class="metric rest"><strong>2m</strong><span>rest</span></div><input class="check" type="checkbox"></div>
@@ -341,18 +345,12 @@
         <div class="exercise"><div class="exercise-number">06</div><div><div class="exercise-name">Dead bug + plank</div><div class="exercise-note">Brace and breathe</div></div><div class="metric"><strong>3 × 10 + 45s</strong><span>sets × reps</span></div><div class="metric rest"><strong>60s</strong><span>rest</span></div><input class="check" type="checkbox"></div>
       </article>
 
-      <article class="workout-card" id="saturday">
-        <div class="workout-head"><div><div class="focus">Biceps · Triceps · Delts · Cardio</div><h3>Saturday — Arms + Conditioning</h3></div><div class="session-badge">Optional</div></div>
-        <div class="exercise"><div class="exercise-number">01</div><div><div class="exercise-name">Hammer curl</div><div class="exercise-note">Neutral wrist</div></div><div class="metric"><strong>3 × 10–15</strong><span>sets × reps</span></div><div class="metric rest"><strong>75s</strong><span>rest</span></div><input class="check" type="checkbox"></div>
-        <div class="exercise"><div class="exercise-number">02</div><div><div class="exercise-name">Dumbbell spider curl</div><div class="exercise-note">Smooth, controlled reps</div></div><div class="metric"><strong>3 × 10–15</strong><span>sets × reps</span></div><div class="metric rest"><strong>75s</strong><span>rest</span></div><input class="check" type="checkbox"></div>
-        <div class="exercise"><div class="exercise-number">03</div><div><div class="exercise-name">Close-grip barbell bench press</div><div class="exercise-note">Keep elbows comfortably tucked</div></div><div class="metric"><strong>3 × 6–10</strong><span>sets × reps</span></div><div class="metric rest"><strong>2m</strong><span>rest</span></div><input class="check" type="checkbox"></div>
-        <div class="exercise"><div class="exercise-number">04</div><div><div class="exercise-name">Lateral raise</div><div class="exercise-note">Stop before form breaks</div></div><div class="metric"><strong>3 × 15–25</strong><span>sets × reps</span></div><div class="metric rest"><strong>60s</strong><span>rest</span></div><input class="check" type="checkbox"></div>
-        <div class="exercise"><div class="exercise-number">05</div><div><div class="exercise-name">Zone 2 cardio</div><div class="exercise-note">Skip the lifting if fatigued</div></div><div class="metric"><strong>25–35m</strong><span>duration</span></div><div class="metric rest"><strong>Easy</strong><span>effort</span></div><input class="check" type="checkbox"></div>
-      </article>
-
       <article class="workout-card" id="sunday">
-        <div class="workout-head"><div><div class="focus">Walking optional · Prepare meals · Recover</div><h3>Sunday — Full Rest</h3></div><div class="session-badge">Recovery</div></div>
-        <div style="padding:36px 24px;text-align:center;color:var(--muted)"><b style="display:block;color:var(--ink);margin-bottom:6px">Nothing to prove today.</b>Walk if you like. Eat to plan. Get ready for Monday.</div>
+        <div class="workout-head"><div><div class="focus">Biceps · Triceps · Delts · Cardio</div><h3>Sunday — Arms + Conditioning</h3></div><div class="session-badge">Optional</div></div>
+        <div class="exercise"><div class="exercise-number">01</div><div><div class="exercise-name">Hammer curl</div><div class="exercise-note">Neutral wrist; stop if elbows feel fatigued</div></div><div class="metric"><strong>2–3 × 10–15</strong><span>sets × reps</span></div><div class="metric rest"><strong>75s</strong><span>rest</span></div><input class="check" type="checkbox"></div>
+        <div class="exercise"><div class="exercise-number">02</div><div><div class="exercise-name">Close-grip barbell bench press</div><div class="exercise-note">Keep elbows comfortably tucked</div></div><div class="metric"><strong>3 × 6–10</strong><span>sets × reps</span></div><div class="metric rest"><strong>2m</strong><span>rest</span></div><input class="check" type="checkbox"></div>
+        <div class="exercise"><div class="exercise-number">03</div><div><div class="exercise-name">Lateral raise</div><div class="exercise-note">Stop before form breaks</div></div><div class="metric"><strong>3 × 15–25</strong><span>sets × reps</span></div><div class="metric rest"><strong>60s</strong><span>rest</span></div><input class="check" type="checkbox"></div>
+        <div class="exercise"><div class="exercise-number">04</div><div><div class="exercise-name">Zone 2 cardio</div><div class="exercise-note">Skip the lifting if fatigued</div></div><div class="metric"><strong>25–35m</strong><span>duration</span></div><div class="metric rest"><strong>Easy</strong><span>effort</span></div><input class="check" type="checkbox"></div>
       </article>
       <div class="training-notes">
         <div class="info-card"><b>Progression</b><p>Reach the top of the rep range on every set, then add the smallest available weight.</p></div>
@@ -519,7 +517,7 @@
     (() => {
       const DB_NAME = 'ashifFitnessTracker';
       const STORE_NAME = 'workouts';
-      const strengthCards = [...document.querySelectorAll('.workout-card')].filter(card => !['wednesday','sunday'].includes(card.id));
+      const strengthCards = [...document.querySelectorAll('.workout-card')].filter(card => !['monday','thursday'].includes(card.id));
       const dateInput = document.getElementById('sessionDate');
       const status = document.getElementById('syncStatus');
       const historyRows = document.getElementById('historyRows');
@@ -537,6 +535,7 @@
       dateInput.value = localDate();
 
       const numberOrBlank = value => value === '' ? null : Number(value);
+      const recordId = (sessionDate, cardId, exercise) => `${sessionDate}|${cardId}|${encodeURIComponent(exercise)}`;
       const dbPromise = new Promise((resolve, reject) => {
         const request = indexedDB.open(DB_NAME, 1);
         request.onupgradeneeded = () => {
@@ -607,7 +606,8 @@
           grid.dataset.session = session;
           grid.dataset.exerciseIndex = exerciseIndex;
 
-          const prescribedSets = Math.min(4, Math.max(1, Number.parseInt(target, 10) || 3));
+          const setMatch = target.match(/^(\d+)(?:–(\d+))?\s*×/);
+          const prescribedSets = Math.min(4, Math.max(1, Number(setMatch?.[2] || setMatch?.[1]) || 3));
           grid.dataset.setCount = prescribedSets;
           for (let set = 1; set <= prescribedSets; set++) {
             const group = document.createElement('label');
@@ -646,7 +646,7 @@
             const totalReps = reps.reduce((sum, v) => sum + (v || 0), 0);
             const volume = weights.reduce((sum, wt, i) => sum + ((wt || 0) * (reps[i] || 0)), 0);
             return {
-              id: `${dateInput.value}|${card.id}|${grid.dataset.exerciseIndex}`,
+              id: recordId(dateInput.value, card.id, grid.dataset.exercise),
               updatedAt: new Date().toISOString(),
               sessionDate: dateInput.value,
               day: grid.dataset.day,
@@ -688,7 +688,7 @@
         const byId = new Map(records.map(record => [record.id, record]));
         strengthCards.forEach(card => {
           card.querySelectorAll('.set-entry-grid').forEach(grid => {
-            const record = byId.get(`${dateInput.value}|${card.id}|${grid.dataset.exerciseIndex}`);
+            const record = byId.get(recordId(dateInput.value, card.id, grid.dataset.exercise));
             if (!record) return;
             [...grid.querySelectorAll('.set-weight')].forEach((input, index) => { input.value = record.sets?.[index]?.weight ?? ''; });
             [...grid.querySelectorAll('.set-reps')].forEach((input, index) => { input.value = record.sets?.[index]?.reps ?? ''; });
