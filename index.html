@@ -31,7 +31,7 @@
       background: var(--paper);
       color: var(--ink);
       font-family: Roboto, system-ui, sans-serif;
-      font-size: 16px;
+      font-size: 17px;
       line-height: 1.55;
     }
     button, input { font: inherit; }
@@ -108,18 +108,19 @@
       background: var(--card);
       box-shadow: var(--shadow);
     }
-    .workout-card { margin-bottom: 16px; padding-bottom: 10px; scroll-margin-top: 82px; }
-    .workout-head { display: flex; justify-content: space-between; gap: 12px; padding: 24px 24px 14px; }
-    .workout-head h3 { margin: 4px 0 0; font-size: 27px; letter-spacing: -.035em; }
-    .workout-head .focus { color: var(--muted); font-size: 14px; }
+    .workout-card { margin-bottom: 16px; overflow: hidden; scroll-margin-top: 82px; }
+    .workout-head { display: flex; justify-content: space-between; gap: 12px; padding: 24px; border-bottom: 1px solid var(--line); }
+    .workout-head h3 { margin: 4px 0 0; font-size: 29px; letter-spacing: -.035em; }
+    .workout-head .focus { color: var(--muted); font-size: 15px; }
     .session-badge { align-self: start; padding: 7px 10px; border-radius: 9px; background: var(--green-soft); color: var(--green); font: 500 11px "Roboto Mono", monospace; }
-    .exercise { display: grid; grid-template-columns: 30px minmax(0,1fr) 82px 66px 35px; align-items: center; gap: 11px; min-height: 72px; margin: 9px 13px; padding: 13px 15px; border: 1px solid var(--line); border-radius: 16px; background: #fbfcff; box-shadow: 0 2px 7px rgba(31, 44, 67, .045); }
-    .exercise-number { color: #8b9099; font: 500 12px "Roboto Mono", monospace; }
-    .exercise-name { font-weight: 700; font-size: 16px; }
-    .exercise-note { color: var(--muted); font-size: 13px; margin-top: 3px; }
+    .exercise { display: grid; grid-template-columns: 34px minmax(0,1fr) 90px 72px 38px; align-items: center; gap: 12px; min-height: 78px; padding: 15px 24px; border-bottom: 1px solid var(--line); background: var(--card); }
+    .exercise:last-of-type { border-bottom: 0; }
+    .exercise-number { color: #808690; font: 500 13px "Roboto Mono", monospace; }
+    .exercise-name { font-weight: 700; font-size: 18px; }
+    .exercise-note { color: var(--muted); font-size: 14px; margin-top: 3px; }
     .metric { text-align: center; }
-    .metric strong { display: block; font-size: 15px; }
-    .metric span { display: block; color: var(--muted); font: 400 10px "Roboto Mono", monospace; text-transform: uppercase; }
+    .metric strong { display: block; font-size: 16px; }
+    .metric span { display: block; color: var(--muted); font: 400 11px "Roboto Mono", monospace; text-transform: uppercase; }
     .check { width: 19px; height: 19px; accent-color: var(--green); cursor: pointer; }
     .training-notes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 12px; }
     .sync-panel { margin: 0 0 14px; padding: 18px; border: 1px solid var(--line); border-radius: 18px; background: var(--card); box-shadow: var(--shadow); }
@@ -137,7 +138,7 @@
     .set-entry span, .exercise-extra span { grid-column: 1 / -1; color: var(--muted); font: 500 9px "Roboto Mono", monospace; text-transform: uppercase; }
     .set-entry input, .exercise-extra input { min-width: 0; width: 100%; padding: 9px 7px; border: 1px solid #d7dce5; border-radius: 8px; background: white; font-size: 14px; }
     .set-entry input::placeholder, .exercise-extra input::placeholder { color: #aaa89f; }
-    .session-actions { display: flex; justify-content: flex-end; align-items: center; gap: 12px; margin: 10px 13px 2px; padding: 13px 14px; border-radius: 14px; background: #f3f6fb; }
+    .session-actions { display: flex; justify-content: flex-end; align-items: center; gap: 12px; padding: 15px 20px; border-top: 1px solid var(--line); background: #f3f6fb; }
     .session-message { color: var(--muted); font-size: 13px; }
     .history-card { overflow: hidden; border: 1px solid var(--line); border-radius: 20px; background: var(--card); box-shadow: var(--shadow); }
     .trend-card { margin-bottom: 14px; padding: 20px; border: 1px solid var(--line); border-radius: 20px; background: var(--card); box-shadow: var(--shadow); }
@@ -228,7 +229,7 @@
       .week { gap: 4px; }
       .day-btn { padding: 9px 2px; border-radius: 10px; }
       .day-btn b { font-size: 11px; }
-      .exercise { grid-template-columns: 23px minmax(0,1fr) 58px 28px; padding: 11px 13px; gap: 7px; }
+      .exercise { grid-template-columns: 25px minmax(0,1fr) 68px 30px; padding: 14px 13px; gap: 8px; }
       .exercise .rest { display: none; }
       .training-notes, .rules, .progress-grid { grid-template-columns: 1fr; }
       .sync-controls { grid-template-columns: 1fr 1fr; }
